@@ -19,6 +19,7 @@ const map = new mapboxgl.Map({
 });
 
 const svg = d3.select('#map').select('svg');
+const stationFlow = d3.scaleQuantize().domain([0, 1]).range([0, 0.5, 1]);
 
 const departuresByMinute = Array.from({ length: 1440 }, () => []);
 const arrivalsByMinute = Array.from({ length: 1440 }, () => []);
@@ -129,6 +130,9 @@ map.on('load', async () => {
       .enter()
       .append('circle')
       .attr('r', (d) => radiusScale(d.totalTraffic))
+      .style('--departure-ratio', (d) =>
+        stationFlow(d.totalTraffic ? d.departures / d.totalTraffic : 0.5),
+      )
       .each(function (d) {
         d3.select(this)
           .append('title')
@@ -145,6 +149,13 @@ map.on('load', async () => {
         .data(filteredStations, (station) => station.short_name)
         .join('circle')
         .attr('r', (station) => radiusScale(station.totalTraffic))
+        .style('--departure-ratio', (station) =>
+          stationFlow(
+            station.totalTraffic
+              ? station.departures / station.totalTraffic
+              : 0.5,
+          ),
+        )
         .select('title')
         .text(
           (station) =>

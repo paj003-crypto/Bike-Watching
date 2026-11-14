@@ -58,6 +58,20 @@ header h1 {
   accent-color: #31826b;
 }
 
+:root {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+}
+
+#map svg circle,
+.legend > div {
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
 #map {
   width: 100%;
   height: auto;
@@ -76,11 +90,37 @@ header h1 {
 }
 
 #map svg circle {
-  fill: steelblue;
+  fill: var(--color);
   fill-opacity: 0.6;
   stroke: white;
   stroke-width: 1;
   pointer-events: auto;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  margin-block: 0.5em;
+  padding: 0 1em;
+}
+
+.legend > div {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  font-size: 0.875rem;
+}
+
+.legend > div::before {
+  content: '';
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: none;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  background: var(--color);
 }
 
 @media (max-width: 640px) {
@@ -93,5 +133,17 @@ header h1 {
     grid-template-columns: auto minmax(4rem, 1fr) 5.5rem;
     width: 100%;
     margin-left: 0;
+  }
+
+  .legend {
+    gap: 0.75em;
+    justify-content: space-around;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .legend > div {
+    gap: 0.3em;
+    font-size: 0.75rem;
   }
 }
