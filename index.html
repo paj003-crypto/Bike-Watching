@@ -10,10 +10,21 @@
       href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="map.css?v=4" />
-    <script src="map.js?v=4" type="module"></script>
+    <link rel="stylesheet" href="map.css?v=5" />
+    <script src="map.js?v=5" type="module"></script>
   </head>
   <body>
+    <header>
+      <h1>Bikewatching</h1>
+      <label class="time-filter" for="time-slider">
+        <span>Filter by time:</span>
+        <input id="time-slider" type="range" min="-1" max="1440" value="-1" />
+        <span class="time-display">
+          <time id="selected-time"></time>
+          <em id="any-time">(any time)</em>
+        </span>
+      </label>
+    </header>
     <div id="map">
       <svg></svg>
     </div>
