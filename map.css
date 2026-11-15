@@ -29,6 +29,11 @@ header h1 {
   font-size: 1.35rem;
 }
 
+.project-description {
+  margin: 0;
+  color: #68747d;
+}
+
 .time-filter {
   display: grid;
   grid-template-columns: auto minmax(10rem, 24rem) 5.5rem;
